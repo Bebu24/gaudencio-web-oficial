@@ -1,19 +1,21 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
+// CORRECCIÓN 1: Eliminamos "as any". Si usas una versión reciente de la librería de Stripe, 
+// pasarlo como string directo es la forma correcta y segura.
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2023-10-16" as any,
+  apiVersion: "2026-02-25.clover",
 });
 
 export async function POST(req: Request) {
   try {
-    // NUEVO: Agregamos "tipo" a lo que extraemos del frontend
+    // Agregamos "tipo" a lo que extraemos del frontend
     const { title, price, image, tipo } = await req.json();
     
     // Obtenemos la URL base (prioriza la variable de entorno, si no usa el origen del request)
     const origin = process.env.NEXT_PUBLIC_URL || req.headers.get("origin");
 
-    // NUEVO: Decidimos a qué página regresarlo si cancela el pago
+    // Decidimos a qué página regresarlo si cancela el pago
     const cancelPath = tipo === "curso" ? "/cursos" : "/libros";
 
     const session = await stripe.checkout.sessions.create({
@@ -21,7 +23,7 @@ export async function POST(req: Request) {
       line_items: [
         {
           price_data: {
-            currency: "mxn", // CORREGIDO: Cobramos en Pesos Mexicanos
+            currency: "mxn", // Cobramos en Pesos Mexicanos
             product_data: {
               name: title,
               images: image ? [image] : [], 
@@ -37,11 +39,14 @@ export async function POST(req: Request) {
       
       mode: "payment",
       success_url: `${origin}/success`,
-      cancel_url: `${origin}${cancelPath}`, // CORREGIDO: Ahora es dinámico
+      cancel_url: `${origin}${cancelPath}`, // Ahora es dinámico
     });
 
     return NextResponse.json({ url: session.url });
-  } catch (err: any) {
+
+  // CORRECCIÓN 2: Tipamos el error de forma estricta en lugar de usar "any"
+  } catch (error) {
+    const err = error as Error;
     console.error("Error detectado en Stripe API:", err.message);
     return NextResponse.json({ error: err.message }, { status: 500 });
   }

@@ -39,6 +39,7 @@ export default function ContratacionesPage() {
         setStatus("Ocurrió un error al enviar. Por favor, intenta de nuevo.");
       }
     } catch (err) {
+      console.error(err);
       setStatus("Error de conexión. Revisa tu internet.");
     } finally {
       setIsSubmitting(false);

@@ -50,7 +50,8 @@ export default function LibrosPage() {
         throw new Error("No se recibió la URL de pago de Stripe.");
       }
 
-    } catch (err: any) {
+    } catch (error) {
+      const err = error as Error;
       console.error("Error detallado:", err);
       setToastMessage(err.message || "Error al procesar la compra.");
       setShowToast(true);

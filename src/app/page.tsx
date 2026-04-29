@@ -157,7 +157,7 @@ export default function HomePage() {
             <div className="bg-white p-10 rounded-2xl shadow-sm border border-gray-100 relative">
               <span className="text-6xl text-[#E85D2A]/20 absolute top-6 left-6 font-serif">"</span>
               <p className="text-[#4F6572] text-lg leading-relaxed italic relative z-10 pt-4">
-                Leer "Cero Golpes" cambió por completo la dinámica en mi casa. Entendí que la disciplina no tiene que estar ligada al miedo. Las herramientas de Gaudencio son un respiro para los padres que queremos hacerlo diferente.
+                Leer &quot;Cero Golpes&quot; cambió por completo la dinámica en mi casa. Entendí que la disciplina no tiene que estar ligada al miedo. Las herramientas de Gaudencio son un respiro para los padres que queremos hacerlo diferente.
               </p>
               <div className="mt-6 flex items-center gap-4">
                 <div className="w-12 h-12 bg-[#1F3A5F]/10 rounded-full flex items-center justify-center text-[#1F3A5F] font-bold">

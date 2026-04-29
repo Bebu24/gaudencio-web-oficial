@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { courses } from "@/app/data/cursos";
 import CourseCard, { Course } from "@/components/CourseCard";
-// NUEVO: Importamos los componentes de PayPal
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 export default function CursosPage() {
@@ -14,7 +13,6 @@ export default function CursosPage() {
     setBuy(c);
   }
 
-  // Esta función maneja el pago con Stripe (ya la teníamos)
   async function payWithStripe() {
     if (!buy) return;
     setIsLoading(true);
@@ -89,10 +87,8 @@ export default function CursosPage() {
               ${buy.price.toFixed(2)} MXN
             </p>
 
-            {/* SECCIÓN DE BOTONES DE PAGO */}
             <div className="space-y-4">
               
-              {/* Botón de Stripe */}
               <button
                 onClick={payWithStripe}
                 disabled={isLoading}
@@ -107,8 +103,6 @@ export default function CursosPage() {
                 <div className="flex-grow border-t border-gray-200"></div>
               </div>
 
-              {/* Proveedor y Botones de PayPal */}
-              {/* Nota: 'test' es el ID de pruebas de PayPal. Luego lo cambiaremos por el tuyo. */}
               <div className="w-full relative z-0">
                 <PayPalScriptProvider options={{ clientId: "test", currency: "MXN" }}>
                   <PayPalButtons 
@@ -130,7 +124,8 @@ export default function CursosPage() {
                     onApprove={async (data, actions) => {
                       if (actions.order) {
                         const details = await actions.order.capture();
-                        // Si el pago es exitoso, redirigimos a tu página de success
+                        // CORRECCIÓN: Usamos la variable para evitar el error de Vercel
+                        console.log("Pago completado por:", details.payer?.name?.given_name);
                         window.location.href = "/success";
                       }
                     }}
@@ -138,7 +133,6 @@ export default function CursosPage() {
                 </PayPalScriptProvider>
               </div>
 
-              {/* Botón Cancelar */}
               <button
                 onClick={() => setBuy(null)}
                 disabled={isLoading}
