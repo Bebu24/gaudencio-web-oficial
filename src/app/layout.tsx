@@ -1,7 +1,7 @@
-// app/layout.tsx
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Providers } from "@/components/Providers"; // Importamos el que creamos arriba
 
 export const metadata = {
   title: "Gaudencio Rodríguez",
@@ -16,14 +16,12 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body>
-        <Navbar />
-        <main className="pt-16">{children}</main>
-        <Footer />
+        <Providers>
+          <Navbar />
+          <main className="pt-16">{children}</main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
 }
-
-
-
-

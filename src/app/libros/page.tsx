@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { books } from "@/app/data/libros";
-import BookCard, { Book } from "@/components/BookCard";
+import { books, Book } from "@/app/data/libros";
+import BookCard from "@/components/BookCard";
 import Toast from "@/components/Toast";
+import { PaypalButton } from "@/components/PayPalButton"; 
 
 export default function LibrosPage() {
-  // --- ESTADOS ---
   const [buyItem, setBuyItem] = useState<Book | null>(null);
   const [loading, setLoading] = useState(false);
   const [showToast, setShowToast] = useState(false);
@@ -21,27 +21,29 @@ export default function LibrosPage() {
     
     setLoading(true); 
     try {
-      // 1. LLAMADA A LA API (Corregida a SINGULAR: /api/solicitud)
+      // Calculamos la URL absoluta de la imagen basándonos en el origen actual
+      // (Stripe requiere URLs absolutas como https://tusitio.com/images/libro.jpg)
+      const imageUrl = `${window.location.origin}${buyItem.image}`;
+
       const response = await fetch("/api/solicitud", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          id: buyItem.id,
           title: buyItem.title,
           price: buyItem.price,
-          image: "https://via.placeholder.com/300x400?text=Libro", 
+          tipo: "libro",
+          image: imageUrl, // <-- CORRECCIÓN APLICADA AQUÍ
         }),
       });
 
-      // Validamos que la respuesta sea exitosa
       if (!response.ok) {
         throw new Error(`Error en el servidor (${response.status})`);
       }
 
       const data = await response.json();
-      
       if (data.error) throw new Error(data.error);
 
-      // 2. REDIRECCIÓN MODERNA (Usando la URL que devuelve Stripe)
       if (data.url) {
         window.location.href = data.url; 
       } else {
@@ -50,7 +52,6 @@ export default function LibrosPage() {
 
     } catch (err: any) {
       console.error("Error detallado:", err);
-      // Mostramos el error en el Toast o alerta
       setToastMessage(err.message || "Error al procesar la compra.");
       setShowToast(true);
     } finally {
@@ -59,47 +60,79 @@ export default function LibrosPage() {
   };
 
   return (
-    <main className="bg-[#F8F9FA] min-h-screen">
-      <div className="max-w-6xl mx-auto px-6 py-20 text-[#1F3A5F]">
+    <main className="min-h-screen bg-[#F8F9FA]">
+      <div className="max-w-6xl mx-auto px-6 py-24 text-[#1F3A5F]">
+        
+        {/* Hero */}
         <section className="max-w-3xl mb-16">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-4 italic">
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
             Libros para acompañar la crianza
           </h1>
-          <p className="text-lg text-[#4F6572] leading-relaxed">
+          {/* Línea decorativa */}
+          <div className="w-16 h-[4px] bg-[#E85D2A] mt-4 mb-6 rounded-full"></div>
+          <p className="text-lg md:text-xl text-[#4F6572] leading-relaxed">
             Explora nuestra colección diseñada para una crianza respetuosa.
           </p>
         </section>
 
+        {/* Grid de Libros */}
         <section className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-24">
           {books.map((book) => (
-            <div key={book.id} className="bg-white rounded-2xl shadow-sm p-6">
+            <div key={book.id} className="bg-white rounded-2xl shadow-sm p-6 border border-gray-100 h-full">
               <BookCard book={book} onBuy={handleBuy} />
             </div>
           ))}
         </section>
       </div>
 
-      {/* Modal de compra */}
+      {/* Modal de compra estandarizado */}
       {buyItem && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl p-8 max-w-sm w-full shadow-lg">
-            <h3 className="text-2xl font-bold mb-2">{buyItem.title}</h3>
-            <p className="text-[#4F6572] mb-6 text-xl">${buyItem.price.toFixed(2)}</p>
+        <div className="fixed inset-0 bg-[#1F3A5F]/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl border border-gray-100 max-h-[90vh] overflow-y-auto">
+            
+            <h3 className="text-2xl font-extrabold text-[#1F3A5F]">
+              Confirmar compra
+            </h3>
+            
+            <p className="mt-6 text-[#4F6572]">Libro seleccionado:</p>
+            <h4 className="mt-1 font-bold text-lg text-[#1F3A5F]">{buyItem.title}</h4>
+            
+            <p className="mt-2 text-2xl font-extrabold text-[#E85D2A] mb-8">
+              ${buyItem.price.toFixed(2)} MXN
+            </p>
 
-            <div className="flex justify-end gap-3">
-              <button
-                onClick={() => setBuyItem(null)}
-                className="px-4 py-2 rounded-full border border-gray-300 transition hover:bg-gray-50"
-                disabled={loading}
-              >
-                Cancelar
-              </button>
+            <div className="space-y-4">
+              {/* Botón de Stripe */}
               <button
                 onClick={confirmBuy}
                 disabled={loading}
-                className="px-5 py-2 rounded-full bg-[#E85D2A] text-white font-semibold transition hover:opacity-90 disabled:bg-gray-400"
+                className="w-full px-6 py-3 rounded-full bg-[#1F3A5F] text-white font-bold hover:bg-[#152842] transition shadow-md disabled:opacity-70 flex justify-center items-center"
               >
-                {loading ? "Cargando..." : "Ir a pagar"}
+                {loading ? "Procesando..." : "💳 Pagar con Tarjeta"}
+              </button>
+
+              {/* Botón de PayPal */}
+              {!loading && (
+                <>
+                  <div className="relative flex items-center py-2">
+                    <div className="flex-grow border-t border-gray-200"></div>
+                    <span className="flex-shrink-0 mx-4 text-gray-400 text-sm font-semibold">o paga seguro con</span>
+                    <div className="flex-grow border-t border-gray-200"></div>
+                  </div>
+                  
+                  <div className="w-full relative z-0">
+                    <PaypalButton amount={buyItem.price} libroId={buyItem.id} />
+                  </div>
+                </>
+              )}
+
+              {/* Botón Cancelar */}
+              <button
+                onClick={() => setBuyItem(null)}
+                disabled={loading}
+                className="w-full mt-4 px-6 py-3 rounded-full border border-gray-300 text-[#4F6572] font-semibold hover:bg-gray-50 transition"
+              >
+                Cancelar
               </button>
             </div>
           </div>

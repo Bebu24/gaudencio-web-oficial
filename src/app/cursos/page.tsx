@@ -3,33 +3,59 @@
 import { useState } from "react";
 import { courses } from "@/app/data/cursos";
 import CourseCard, { Course } from "@/components/CourseCard";
+// NUEVO: Importamos los componentes de PayPal
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 export default function CursosPage() {
   const [buy, setBuy] = useState<Course | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleBuy(c: Course) {
     setBuy(c);
   }
 
-  function confirmBuy() {
-    if (buy) {
-      alert(`Compra simulada: ${buy.title}`);
-      setBuy(null);
+  // Esta función maneja el pago con Stripe (ya la teníamos)
+  async function payWithStripe() {
+    if (!buy) return;
+    setIsLoading(true);
+
+    try {
+      const res = await fetch("/api/solicitud", { 
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: buy.id,
+          title: buy.title,
+          price: buy.price,
+          tipo: "curso",
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.url) {
+        window.location.href = data.url; 
+      } else {
+        alert("Ocurrió un error al generar el enlace de Stripe. Intenta de nuevo.");
+        setIsLoading(false);
+      }
+    } catch (error) {
+      console.error("Error al procesar pago:", error);
+      alert("Error de conexión. Revisa tu internet.");
+      setIsLoading(false);
     }
   }
 
   return (
-    <div className="min-h-screen bg-[#F4F7FB]">
+    <div className="min-h-screen bg-[#F8F9FA]">
       
       {/* Hero */}
-      <section className="max-w-6xl mx-auto px-6 pt-24 pb-14">
-        <h1 className="text-4xl md:text-5xl font-bold text-[#1F3A5F] tracking-tight">
+      <section className="max-w-6xl mx-auto px-6 pt-24 pb-14 text-[#1F3A5F]">
+        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
           Cursos y Talleres
         </h1>
-
-        <div className="w-16 h-[3px] bg-[#1F3A5F] mt-6 mb-6 rounded-full opacity-80"></div>
-
-        <p className="text-slate-600 max-w-2xl text-lg leading-relaxed">
+        <div className="w-16 h-[4px] bg-[#E85D2A] mt-4 mb-6 rounded-full"></div>
+        <p className="text-[#4F6572] max-w-2xl text-lg md:text-xl leading-relaxed">
           Formación especializada con enfoque humano y profesional.
           Accede a contenido profundo, claro y aplicable.
         </p>
@@ -44,42 +70,84 @@ export default function CursosPage() {
         </div>
       </section>
 
-      {/* Modal */}
+      {/* Modal de Pago */}
       {buy && (
-        <div className="fixed inset-0 bg-[#1F3A5F]/30 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 border border-slate-200">
+        <div className="fixed inset-0 bg-[#1F3A5F]/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 border border-gray-100 max-h-[90vh] overflow-y-auto">
             
-            <h3 className="text-2xl font-semibold text-[#1F3A5F]">
+            <h3 className="text-2xl font-extrabold text-[#1F3A5F]">
               Confirmar inscripción
             </h3>
 
-            <p className="mt-6 text-slate-600">
+            <p className="mt-6 text-[#4F6572]">
               Curso seleccionado:
             </p>
-
-            <p className="mt-2 font-semibold text-lg text-[#1F3A5F]">
+            <p className="mt-1 font-bold text-lg text-[#1F3A5F]">
               {buy.title}
             </p>
-
-            <p className="mt-3 text-xl font-bold text-[#1F3A5F]">
+            <p className="mt-2 text-2xl font-extrabold text-[#E85D2A] mb-8">
               ${buy.price.toFixed(2)} MXN
             </p>
 
-            <div className="mt-8 flex justify-end gap-3">
+            {/* SECCIÓN DE BOTONES DE PAGO */}
+            <div className="space-y-4">
+              
+              {/* Botón de Stripe */}
+              <button
+                onClick={payWithStripe}
+                disabled={isLoading}
+                className="w-full px-6 py-3 rounded-full bg-[#1F3A5F] text-white font-bold hover:bg-[#152842] transition shadow-md disabled:opacity-70 flex justify-center items-center"
+              >
+                {isLoading ? "Procesando..." : "💳 Pagar con Tarjeta"}
+              </button>
+
+              <div className="relative flex items-center py-2">
+                <div className="flex-grow border-t border-gray-200"></div>
+                <span className="flex-shrink-0 mx-4 text-gray-400 text-sm">o paga seguro con</span>
+                <div className="flex-grow border-t border-gray-200"></div>
+              </div>
+
+              {/* Proveedor y Botones de PayPal */}
+              {/* Nota: 'test' es el ID de pruebas de PayPal. Luego lo cambiaremos por el tuyo. */}
+              <div className="w-full relative z-0">
+                <PayPalScriptProvider options={{ clientId: "test", currency: "MXN" }}>
+                  <PayPalButtons 
+                    style={{ layout: "vertical", shape: "pill", color: "gold" }}
+                    createOrder={(data, actions) => {
+                      return actions.order.create({
+                        intent: "CAPTURE",
+                        purchase_units: [
+                          {
+                            description: buy.title,
+                            amount: {
+                              currency_code: "MXN",
+                              value: buy.price.toString(),
+                            },
+                          },
+                        ],
+                      });
+                    }}
+                    onApprove={async (data, actions) => {
+                      if (actions.order) {
+                        const details = await actions.order.capture();
+                        // Si el pago es exitoso, redirigimos a tu página de success
+                        window.location.href = "/success";
+                      }
+                    }}
+                  />
+                </PayPalScriptProvider>
+              </div>
+
+              {/* Botón Cancelar */}
               <button
                 onClick={() => setBuy(null)}
-                className="px-4 py-2 rounded-lg border border-[#1F3A5F] text-[#1F3A5F] hover:bg-slate-100 transition"
+                disabled={isLoading}
+                className="w-full mt-4 px-6 py-3 rounded-full border border-gray-300 text-[#4F6572] font-semibold hover:bg-gray-50 transition"
               >
                 Cancelar
               </button>
-
-              <button
-                onClick={confirmBuy}
-                className="px-4 py-2 rounded-lg bg-[#1F3A5F] text-white hover:opacity-90 transition shadow-md"
-              >
-                Confirmar
-              </button>
             </div>
+
           </div>
         </div>
       )}
