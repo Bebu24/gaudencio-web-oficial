@@ -107,7 +107,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 3. SECCIÓN SOBRE GAUDENCIO (MÁS BAJITA Y COMPACTA) */}
+      {/* 3. SECCIÓN SOBRE GAUDENCIO */}
       <section className="bg-[#1F3A5F] py-16 md:py-20 text-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center gap-10 md:gap-16">
           
@@ -133,7 +133,7 @@ export default function HomePage() {
           <div className="w-full md:w-4/12">
             <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src="/images/datos-curriculares-2.jpg"
+                src="/images/datos-curriculares.jpg"
                 alt="Gaudencio Rodríguez"
                 fill
                 className="object-cover object-top"
@@ -155,7 +155,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Testimonio 1 */}
             <div className="bg-white p-10 rounded-2xl shadow-sm border border-gray-100 relative">
-              <span className="text-6xl text-[#E85D2A]/20 absolute top-6 left-6 font-serif">"</span>
+              <span className="text-6xl text-[#E85D2A]/20 absolute top-6 left-6 font-serif">&quot;</span>
               <p className="text-[#4F6572] text-lg leading-relaxed italic relative z-10 pt-4">
                 Leer &quot;Cero Golpes&quot; cambió por completo la dinámica en mi casa. Entendí que la disciplina no tiene que estar ligada al miedo. Las herramientas de Gaudencio son un respiro para los padres que queremos hacerlo diferente.
               </p>
@@ -172,7 +172,7 @@ export default function HomePage() {
 
             {/* Testimonio 2 */}
             <div className="bg-white p-10 rounded-2xl shadow-sm border border-gray-100 relative">
-              <span className="text-6xl text-[#E85D2A]/20 absolute top-6 left-6 font-serif">"</span>
+              <span className="text-6xl text-[#E85D2A]/20 absolute top-6 left-6 font-serif">&quot;</span>
               <p className="text-[#4F6572] text-lg leading-relaxed italic relative z-10 pt-4">
                 El taller de crianza superó mis expectativas. Gaudencio tiene una forma de explicar los conceptos científicos con tanta empatía que no te sientes juzgado, sino acompañado en el proceso de educar con ternura.
               </p>
