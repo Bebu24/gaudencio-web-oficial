@@ -11,7 +11,7 @@ export default function AvisoDePrivacidadPage() {
 
         <div className="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-gray-100 space-y-6 text-[#4F6572] leading-relaxed">
           <p>
-            En cumplimiento con la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (en adelante "La Ley"), <strong>Gaudencio Rodríguez Juárez</strong>, con domicilio en México, es responsable de recabar sus datos personales, del uso que se le dé a los mismos y de su protección.
+            En cumplimiento con la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (en adelante &quot;La Ley&quot;), <strong>Gaudencio Rodríguez Juárez</strong>, con domicilio en México, es responsable de recabar sus datos personales, del uso que se le dé a los mismos y de su protección.
           </p>
 
           <h2 className="text-xl font-bold text-[#1F3A5F] mt-8">1. Fines de la información</h2>
