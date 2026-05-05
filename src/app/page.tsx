@@ -5,12 +5,12 @@ export default function HomePage() {
   return (
     <div className="min-h-screen flex flex-col font-sans">
       
-      {/* 1. HERO SECTION (Imagen a la izquierda) */}
+      {/* 1. HERO SECTION (Texto a la izquierda, Imagen a la derecha) */}
       <section className="bg-[#F8F9FA] relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center gap-12 md:gap-20">
           
-          {/* Imagen lateral */}
-          <div className="flex-1 w-full relative order-1 md:order-1">
+          {/* Imagen lateral - Ahora es order-2 en pantallas medianas (md:order-2) */}
+          <div className="flex-1 w-full relative order-1 md:order-2">
             <div className="absolute inset-0 bg-[#E85D2A]/10 rounded-3xl transform -translate-x-4 translate-y-4 md:-translate-x-6 md:translate-y-6 -z-10"></div>
             
             <div className="relative aspect-[4/3] md:aspect-square lg:aspect-[4/3] w-full rounded-2xl overflow-hidden shadow-2xl border border-white/60 bg-white">
@@ -24,8 +24,8 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Texto principal */}
-          <div className="flex-1 flex flex-col justify-center items-start text-[#1F3A5F] order-2 md:order-2">
+          {/* Texto principal - Ahora es order-1 en pantallas medianas (md:order-1) */}
+          <div className="flex-1 flex flex-col justify-center items-start text-[#1F3A5F] order-2 md:order-1">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-2">
               Parentalidad, ternura y buenos tratos
             </h1>
