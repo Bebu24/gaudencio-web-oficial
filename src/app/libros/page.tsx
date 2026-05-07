@@ -77,16 +77,16 @@ export default function LibrosPage() {
         </section>
 
         {/* Sección de Libros corregida para centrado total */}
-<section className="flex flex-wrap justify-center gap-10 mb-24 max-w-6xl mx-auto">
-  {books.map((book) => (
-    <div 
-      key={book.id} 
-      className="bg-white rounded-2xl shadow-sm p-6 border border-gray-100 h-full w-full max-w-[380px] hover:shadow-md transition-shadow"
-    >
-      <BookCard book={book} onBuy={handleBuy} />
-    </div>
-  ))}
-</section>
+        <section className="flex flex-wrap justify-center gap-10 mb-24 max-w-6xl mx-auto">
+          {books.map((book) => (
+          <div 
+          key={book.id} 
+          className="bg-white rounded-2xl shadow-sm p-6 border border-gray-100 h-full w-full max-w-[380px] hover:shadow-md transition-shadow"
+          >
+           <BookCard book={book} onBuy={handleBuy} />
+          </div>
+           ))}
+        </section>
       </div>
 
       {/* Modal de compra estandarizado */}
