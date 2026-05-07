@@ -50,16 +50,16 @@ export default function Navbar() {
             <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#E85D2A] scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
           </Link>
 
-          <Link href="/contrataciones" className="relative group py-1">
+          <Link href="/para-leer" className="relative group py-1">
             <span className="text-[#F9F6F1] text-sm md:text-base font-semibold tracking-wider transition-colors group-hover:text-white">
-              Contrataciones
+              Para leer
             </span>
             <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#E85D2A] scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
           </Link>
 
-          <Link href="/para-leer" className="relative group py-1">
+          <Link href="/contrataciones" className="relative group py-1">
             <span className="text-[#F9F6F1] text-sm md:text-base font-semibold tracking-wider transition-colors group-hover:text-white">
-              Para leer
+              Contrataciones
             </span>
             <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#E85D2A] scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
           </Link>
@@ -101,11 +101,11 @@ export default function Navbar() {
           <Link href="/contenido" onClick={closeMenu} className="text-[#F9F6F1] font-semibold hover:text-[#E85D2A] transition-colors duration-200">
             Contenido
           </Link>
-          <Link href="/contrataciones" onClick={closeMenu} className="text-[#F9F6F1] font-semibold hover:text-[#E85D2A] transition-colors duration-200">
-            Contrataciones
-          </Link>
           <Link href="/para-leer" onClick={closeMenu} className="text-[#F9F6F1] font-semibold hover:text-[#E85D2A] transition-colors duration-200">
             Para leer
+          </Link>
+          <Link href="/contrataciones" onClick={closeMenu} className="text-[#F9F6F1] font-semibold hover:text-[#E85D2A] transition-colors duration-200">
+            Contrataciones
           </Link>
         </div>
       </div>

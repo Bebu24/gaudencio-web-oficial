@@ -33,7 +33,7 @@ export default function LibrosPage() {
           title: buyItem.title,
           price: buyItem.price,
           tipo: "libro",
-          image: imageUrl, // <-- CORRECCIÓN APLICADA AQUÍ
+          image: imageUrl, 
         }),
       });
 
@@ -65,21 +65,24 @@ export default function LibrosPage() {
       <div className="max-w-6xl mx-auto px-6 py-24 text-[#1F3A5F]">
         
         {/* Hero */}
-        <section className="max-w-3xl mb-16">
+        <section className="max-w-3xl mb-16 mx-auto text-center md:text-left">
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
             Libros para acompañar la crianza
           </h1>
           {/* Línea decorativa */}
-          <div className="w-16 h-[4px] bg-[#E85D2A] mt-4 mb-6 rounded-full"></div>
+          <div className="w-16 h-[4px] bg-[#E85D2A] mt-4 mb-6 rounded-full mx-auto md:mx-0"></div>
           <p className="text-lg md:text-xl text-[#4F6572] leading-relaxed">
             Explora nuestra colección diseñada para una crianza respetuosa.
           </p>
         </section>
 
-        {/* Grid de Libros */}
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-24">
+        {/* Grid de Libros - Ajustado para que no se vean gigantes */}
+        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mb-24 max-w-5xl mx-auto justify-center">
           {books.map((book) => (
-            <div key={book.id} className="bg-white rounded-2xl shadow-sm p-6 border border-gray-100 h-full">
+            <div 
+              key={book.id} 
+              className="bg-white rounded-2xl shadow-sm p-6 border border-gray-100 h-full max-w-md mx-auto w-full hover:shadow-md transition-shadow"
+            >
               <BookCard book={book} onBuy={handleBuy} />
             </div>
           ))}
