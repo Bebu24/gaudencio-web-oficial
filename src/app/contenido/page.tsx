@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 export default function ContenidoPage() {
   // Aquí guardamos los datos reales de los videos de Gaudencio
   const videos = [

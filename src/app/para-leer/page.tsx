@@ -58,9 +58,9 @@ export default function ArticulosPage() {
         {/* Bloque editorial final */}
         <section className="mt-24 max-w-4xl border-t border-gray-200 pt-10">
           <p className="text-[#4F6572] text-lg leading-relaxed italic">
-            "Estos textos forman parte de un trabajo continuo de divulgación
+            &quot;Estos textos forman parte de un trabajo continuo de divulgación
             psicológica, orientado a promover el buen trato, la reflexión y el
-            acompañamiento consciente en la crianza."
+            acompañamiento consciente en la crianza.&quot;
           </p>
         </section>
       </div>
