@@ -1,6 +1,34 @@
-// app/contenido/page.tsx
+import Link from "next/link";
 
 export default function ContenidoPage() {
+  // Aquí guardamos los datos reales de los videos de Gaudencio
+  const videos = [
+    {
+      id: 1,
+      title: "Cero golpes | Autoritarismo | Derechos infantiles | Gaudi Rodríguez | Conexión | EP16",
+      date: "19/02/26",
+      url: "https://www.youtube.com/watch?v=J6cuKFHUyjw"
+    },
+    {
+      id: 2,
+      title: "CÓMO ROMPER LA CADENA DE VIOLENCIA: Guía para una paternidad sin violencia",
+      date: "08/01/26",
+      url: "https://www.youtube.com/watch?v=2GXuGHOvv2A"
+    },
+    {
+      id: 3,
+      title: "Verdades que nadie te dice sobre la adopción | Gaudencio Rodríguez | Maternandeando | Ep37",
+      date: "26/11/26",
+      url: "https://www.youtube.com/watch?v=VcGu_drtqlw"
+    },
+    {
+      id: 4,
+      title: "Verdades incómodas de la adopción | Gaudencio Rodríguez | Maternandeando | Ep.20",
+      date: "02/07/25",
+      url: "https://www.youtube.com/watch?v=ie2_1V1uXJQ"
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-[#F8F9FA]">
       
@@ -19,45 +47,31 @@ export default function ContenidoPage() {
         </p>
       </section>
 
-      {/* Lista de contenido */}
+      {/* Lista de contenido usando tu diseño original */}
       <section className="max-w-6xl mx-auto px-6 pb-24">
         <div className="space-y-6">
+          
+          {/* Usamos map() para generar las tarjetas automáticamente */}
+          {videos.map((video) => (
+            <div key={video.id} className="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition">
+              <h3 className="text-xl font-bold text-[#1F3A5F]">
+                Video — {video.title}
+              </h3>
 
-          {/* Item */}
-          <div className="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition">
-            <h3 className="text-xl font-bold text-[#1F3A5F]">
-              Podcast — Episodio 12
-            </h3>
+              <p className="text-[#4F6572] mt-2">
+                Publicado el: {video.date}
+              </p>
 
-            <p className="text-[#4F6572] mt-2">
-              Conversación sobre desarrollo emocional y vínculos humanos.
-            </p>
-
-            <a
-              href="#"
-              className="inline-block mt-4 text-[#E85D2A] font-semibold hover:text-[#C94F24] hover:underline transition"
-            >
-              Escuchar →
-            </a>
-          </div>
-
-          {/* Item */}
-          <div className="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition">
-            <h3 className="text-xl font-bold text-[#1F3A5F]">
-              Video — Conferencia en Z
-            </h3>
-
-            <p className="text-[#4F6572] mt-2">
-              Presentación sobre psicología contemporánea y educación emocional.
-            </p>
-
-            <a
-              href="#"
-              className="inline-block mt-4 text-[#E85D2A] font-semibold hover:text-[#C94F24] hover:underline transition"
-            >
-              Ver conferencia →
-            </a>
-          </div>
+              <a
+                href={video.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block mt-4 text-[#E85D2A] font-semibold hover:text-[#C94F24] hover:underline transition"
+              >
+                Ver video →
+              </a>
+            </div>
+          ))}
 
         </div>
       </section>
