@@ -18,7 +18,7 @@ export default function ContenidoPage() {
     {
       id: 3,
       title: "Verdades que nadie te dice sobre la adopción | Gaudencio Rodríguez | Maternandeando | Ep37",
-      date: "26/11/26",
+      date: "26/11/25",
       url: "https://www.youtube.com/watch?v=VcGu_drtqlw"
     },
     {
