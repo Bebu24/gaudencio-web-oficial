@@ -54,7 +54,8 @@ export default function CursosPage() {
         </h1>
         <div className="w-16 h-[4px] bg-[#E85D2A] mt-4 mb-6 rounded-full"></div>
         <p className="text-[#4F6572] max-w-2xl text-lg md:text-xl leading-relaxed">
-          Formación especializada con enfoque humano y profesional.
+          Formación especializada con enfoque humano y profesional.</p>
+          <p className="text-[#4F6572] max-w-2xl text-lg md:text-xl leading-relaxed">
           Accede a contenido profundo, claro y aplicable.
         </p>
       </section>

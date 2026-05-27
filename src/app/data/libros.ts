@@ -19,7 +19,7 @@ export const books: Book[] = [
   {
     id: "libro_verdades_adopcion",
     title: "Verdades de la adopción",
-    price: 600, 
+    price: 550, 
     image: "/images/verdades-de-la-adopcion.webp",
     description: "Una mirada profunda, humana y científica sobre el proceso de la adopción, sus retos y la construcción del vínculo.",
   }
