@@ -61,7 +61,7 @@ export default function HomePage() {
         </div>
         <h3 className="text-xl font-bold text-[#1F3A5F] mb-3">Crianza positiva y buenos tratos</h3>
         <p className="text-[#4F6572] leading-relaxed text-sm">
-          Acompañamiento a madres, padres y personas cuidadoras para educar desde la ternura, el respeto y la conexión.
+          Acompañamiento a madres, padres y personas cuidadoras para educar desde la ternura, el respeto y la conexión
         </p>
       </div>
 
@@ -74,7 +74,7 @@ export default function HomePage() {
         </div>
         <h3 className="text-xl font-bold text-[#1F3A5F] mb-3">Infancias y adolescencias</h3>
         <p className="text-[#4F6572] leading-relaxed text-sm">
-          Herramientas para el conocimiento de las necesidades de desarrollo de las niñas, niños y adolescentes.
+          Herramientas para el conocimiento de las necesidades de desarrollo de las niñas, niños y adolescentes
         </p>
       </div>
 
@@ -87,7 +87,7 @@ export default function HomePage() {
         </div>
         <h3 className="text-xl font-bold text-[#1F3A5F] mb-3">Adopción</h3>
         <p className="text-[#4F6572] leading-relaxed text-sm">
-          Información, capacitación, psicoeducación y psicoterapia para las personas involucradas en la adopción.
+          Información, capacitación, psicoeducación y psicoterapia para las personas involucradas en la adopción
         </p>
       </div>
 
@@ -100,7 +100,7 @@ export default function HomePage() {
         </div>
         <h3 className="text-xl font-bold text-[#1F3A5F] mb-3">Cuidados alternativos</h3>
         <p className="text-[#4F6572] leading-relaxed text-sm">
-          Acciones para el fortalecimiento de las instituciones encargadas del cuidado residencial, acogimiento familiar y con familia extensa.
+          Acciones para el fortalecimiento de las instituciones encargadas del cuidado residencial, acogimiento familiar y con familia extensa
         </p>
       </div>
     </div>

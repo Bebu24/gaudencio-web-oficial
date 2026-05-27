@@ -66,7 +66,7 @@ export default function SobreMiPage() {
             Mi enfoque
           </h2>
           <p className="text-[#4F6572] text-base md:text-lg leading-relaxed italic">
-            "Trabajo desde un enfoque basado en evidencia científica, de derechos humanos, de buenos tratos y de desarrollo humano integral. El llamado es a nunca pegar (no importa la edad de la niña, niño o adolescente), de ninguna manera (ni física, ni psicológica, ni sexual, etcétera), bajo ninguna circunstancia (no importa su comportamiento), en ningún entorno (familiar, escolar, comunitario, etcétera)."
+            &quot;Trabajo desde un enfoque basado en evidencia científica, de derechos humanos, de buenos tratos y de desarrollo humano integral. El llamado es a nunca pegar (no importa la edad de la niña, niño o adolescente), de ninguna manera (ni física, ni psicológica, ni sexual, etcétera), bajo ninguna circunstancia (no importa su comportamiento), en ningún entorno (familiar, escolar, comunitario, etcétera).&quot;
           </p>
         </section>
 
