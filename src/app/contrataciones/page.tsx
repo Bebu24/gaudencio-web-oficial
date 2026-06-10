@@ -30,11 +30,14 @@ export default function ContratacionesPage() {
         body: JSON.stringify(form),
       });
 
+      const data = await res.json();
+
       if (res.ok) {
-        setStatus("Solicitud enviada correctamente.");
+        setStatus("Solicitud enviada correctamente. Nos pondremos en contacto pronto.");
         setForm({ nombre: "", email: "", organizacion: "", fechaEvento: "", tipoActividad: "", modalidad: "", ciudad: "", numeroParticipantes: "", mensaje: "" });
       } else {
-        setStatus("Ocurrió un error al enviar. Por favor, intenta de nuevo.");
+        // Captura el error de validación del backend si existe
+        setStatus(data.error || "Ocurrió un error al enviar. Por favor, intenta de nuevo.");
       }
     } catch (err) {
       setStatus("Error de conexión. Revisa tu internet.");
@@ -109,7 +112,6 @@ export default function ContratacionesPage() {
               </select>
             </div>
             
-            {/* Si es presencial, el campo de ciudad ocupará su propia caja en el grid */}
             {form.modalidad === "Presencial" && (
               <div className="md:col-span-1">
                 <label className="block text-sm font-bold text-[#1F3A5F] uppercase tracking-wide">
