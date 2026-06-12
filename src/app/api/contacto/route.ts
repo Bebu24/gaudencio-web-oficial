@@ -1,32 +1,28 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY!);
-
 export async function POST(request: Request) {
   try {
-    // 1. Recibimos los datos enviados desde el formulario frontend
-    const body = await request.json();
-    const { nombre, email, organizacion, fechaEvento, tipoActividad, modalidad, ciudad, numeroParticipantes, mensaje } = body;
+    // 1. Hardening de Arquitectura: Inicializamos Resend DENTRO del entorno de ejecución
+    // Esto evita que Next.js crashee durante la fase estática de "build" en Vercel.
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
-    // 2. Validación básica (asegurarnos de que vengan los campos obligatorios)
-    if (!nombre || !email|| !tipoActividad || !modalidad || !numeroParticipantes) {
-      return NextResponse.json(
-        { error: "Los campos obligatorios no están completos." },
-        { status: 400 }
-      );
+    const body = await request.json();
+    const { 
+      nombre, email, organizacion, fechaEvento, 
+      tipoActividad, modalidad, ciudad, numeroParticipantes, mensaje 
+    } = body;
+
+    // 2. Seguridad: Validación Server-Side
+    if (!nombre || !email || !tipoActividad || !modalidad || !numeroParticipantes) {
+      return NextResponse.json({ error: "Faltan campos obligatorios" }, { status: 400 });
     }
 
-    
+    // 3. Ejecución de la red: Envío del correo
     const { data, error } = await resend.emails.send({
-      // NOTA ADMINISTRATIVA: Mientras no verifiques el dominio de Gaudencio en Resend, 
-      // debes usar esta dirección de pruebas por defecto.
       from: "Sitio Web Gaudencio <onboarding@resend.dev>", 
-      
-      // Coloca aquí el correo real de tu tío donde recibirá las solicitudes
-      to: ["novuschronos@gmail.com"], 
-      
-      replyTo: email, // Permite que tu tío le dé a "Responder" y le conteste al cliente directamente
+      to: ["novuschronos@gmail.com"], // Correo verificado en el sandbox de Resend
+      replyTo: email, 
       subject: `Nueva solicitud de contratación: ${tipoActividad} - ${nombre}`,
       html: `
         <h2 style="color: #1F3A5F;">Nueva solicitud de evento</h2>
@@ -49,7 +45,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true, data }, { status: 200 });
   } catch (error) {
-    console.error("Error capturado en el servidor:", error); // <-- Al imprimirlo, TypeScript lo marca como utilizado
+    console.error("Error capturado en el servidor:", error);
     return NextResponse.json({ error: "Error interno del servidor" }, { status: 500 });
   }
 }
