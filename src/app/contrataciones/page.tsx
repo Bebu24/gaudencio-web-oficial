@@ -39,7 +39,8 @@ export default function ContratacionesPage() {
         // Captura el error de validación del backend si existe
         setStatus(data.error || "Ocurrió un error al enviar. Por favor, intenta de nuevo.");
       }
-    } catch (err) {
+    } catch (error) {
+      console.error("Error al enviar el formulario:", error);
       setStatus("Error de conexión. Revisa tu internet.");
     } finally {
       setIsSubmitting(false);

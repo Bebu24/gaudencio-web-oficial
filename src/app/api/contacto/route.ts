@@ -49,6 +49,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true, data }, { status: 200 });
   } catch (error) {
+    console.error("Error capturado en el servidor:", error); // <-- Al imprimirlo, TypeScript lo marca como utilizado
     return NextResponse.json({ error: "Error interno del servidor" }, { status: 500 });
   }
 }
