@@ -3,8 +3,6 @@ import { Resend } from "resend";
 
 export async function POST(request: Request) {
   try {
-    // 1. Hardening de Arquitectura: Inicializamos Resend DENTRO del entorno de ejecución
-    // Esto evita que Next.js crashee durante la fase estática de "build" en Vercel.
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     const body = await request.json();
@@ -13,15 +11,13 @@ export async function POST(request: Request) {
       tipoActividad, modalidad, ciudad, numeroParticipantes, mensaje 
     } = body;
 
-    // 2. Seguridad: Validación Server-Side
     if (!nombre || !email || !tipoActividad || !modalidad || !numeroParticipantes) {
       return NextResponse.json({ error: "Faltan campos obligatorios" }, { status: 400 });
     }
 
-    // 3. Ejecución de la red: Envío del correo
     const { data, error } = await resend.emails.send({
       from: "Sitio Web Gaudencio <onboarding@resend.dev>", 
-      to: ["novuschronos@gmail.com"], // Correo verificado en el sandbox de Resend
+      to: ["novuschronos@gmail.com"], 
       replyTo: email, 
       subject: `Nueva solicitud de contratación: ${tipoActividad} - ${nombre}`,
       html: `
