@@ -16,7 +16,7 @@ export const PaypalButton = ({ amount, libroId }: Props) => {
             intent: "CAPTURE",
             purchase_units: [{
               reference_id: libroId,
-              amount: { currency_code: "USD", value: amount.toString() },
+              amount: { currency_code: "MXN", value: amount.toString() },
             }],
           });
         }}

@@ -51,9 +51,10 @@ export default function LibrosPage() {
       }
 
     } catch (error) {
-      const err = error as Error;
-      console.error("Error detallado:", err);
-      setToastMessage(err.message || "Error al procesar la compra.");
+      const message =
+        error instanceof Error ? error.message : "Error al procesar la compra.";
+      console.error("Error detallado:", error);
+      setToastMessage(message);
       setShowToast(true);
     } finally {
       setLoading(false);

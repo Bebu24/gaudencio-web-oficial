@@ -27,7 +27,7 @@ export default function CourseCard({ course, onBuy }: CourseCardProps) {
         <div className="font-bold">${course.price.toFixed(2)}</div>
         <button
           onClick={() => onBuy(course)}
-          className="px-3 py-1 rounded bg-indigo-600 text-white text-sm"
+          className="px-4 py-1.5 rounded-full bg-[#1F3A5F] text-white text-sm font-semibold hover:bg-[#E85D2A] transition-colors"
         >
           Comprar
         </button>

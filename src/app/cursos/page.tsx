@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { courses } from "@/app/data/cursos";
 import CourseCard, { Course } from "@/components/CourseCard";
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { PayPalButtons } from "@paypal/react-paypal-js";
 
 export default function CursosPage() {
   const [buy, setBuy] = useState<Course | null>(null);
@@ -105,33 +105,32 @@ export default function CursosPage() {
               </div>
 
               <div className="w-full relative z-0">
-                <PayPalScriptProvider options={{ clientId: "test", currency: "MXN" }}>
-                  <PayPalButtons 
-                    style={{ layout: "vertical", shape: "pill", color: "gold" }}
-                    createOrder={(data, actions) => {
-                      return actions.order.create({
-                        intent: "CAPTURE",
-                        purchase_units: [
-                          {
-                            description: buy.title,
-                            amount: {
-                              currency_code: "MXN",
-                              value: buy.price.toString(),
-                            },
+                {/* Usa el PayPalScriptProvider del layout raíz (Providers.tsx, moneda MXN) */}
+                <PayPalButtons
+                  style={{ layout: "vertical", shape: "pill", color: "gold" }}
+                  createOrder={(data, actions) => {
+                    return actions.order.create({
+                      intent: "CAPTURE",
+                      purchase_units: [
+                        {
+                          description: buy.title,
+                          amount: {
+                            currency_code: "MXN",
+                            value: buy.price.toString(),
                           },
-                        ],
-                      });
-                    }}
-                    onApprove={async (data, actions) => {
-                      if (actions.order) {
-                        const details = await actions.order.capture();
-                        // CORRECCIÓN: Usamos la variable para evitar el error de Vercel
-                        console.log("Pago completado por:", details.payer?.name?.given_name);
-                        window.location.href = "/success";
-                      }
-                    }}
-                  />
-                </PayPalScriptProvider>
+                        },
+                      ],
+                    });
+                  }}
+                  onApprove={async (data, actions) => {
+                    if (actions.order) {
+                      const details = await actions.order.capture();
+                      // Usamos la variable para evitar el error de variable sin usar
+                      console.log("Pago completado por:", details.payer?.name?.given_name);
+                      window.location.href = "/success";
+                    }
+                  }}
+                />
               </div>
 
               <button
