@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "main": ".open-next/worker.js",
-  "name": "gaudencio-rodriguez",
+  "name": "gaudencio-web-oficial",
   "compatibility_date": "2026-07-08",
   "compatibility_flags": ["nodejs_compat"],
   "assets": {
