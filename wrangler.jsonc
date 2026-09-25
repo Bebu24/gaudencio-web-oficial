@@ -9,5 +9,8 @@
     "directory": ".open-next/assets",
     "binding": "ASSETS"
   },
+  "vars": {
+    "NEXT_PUBLIC_URL": "https://www.gaudenciorodriguez.com"
+  },
   "observability": { "enabled": true }
 }
