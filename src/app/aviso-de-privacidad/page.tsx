@@ -1,8 +1,11 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = { title: "Aviso de privacidad" };
 
 export default function AvisoDePrivacidadPage() {
   return (
-    <main className="min-h-screen bg-[#F8F9FA] py-24">
+    <div className="min-h-screen bg-[#F8F9FA] py-24">
       <div className="max-w-4xl mx-auto px-6 text-[#1F3A5F]">
         <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
           Aviso de Privacidad
@@ -16,7 +19,7 @@ export default function AvisoDePrivacidadPage() {
 
           <h2 className="text-xl font-bold text-[#1F3A5F] mt-8">1. Fines de la información</h2>
           <p>
-            Su información personal será utilizada para las siguientes finalidades: proveer los servicios y productos que ha solicitado (libros, cursos, talleres y contrataciones); notificarle sobre nuevos servicios o productos que tengan relación con los ya contratados o adquiridos; comunicarle sobre cambios en los mismos; elaborar estudios y programas que son necesarios para determinar hábitos de consumo; y en general, para dar cumplimiento a las obligaciones que hemos contraído con usted.
+            Su información personal será utilizada para las siguientes finalidades: proveer los servicios y productos que ha solicitado (libros, talleres y contrataciones); notificarle sobre nuevos servicios o productos que tengan relación con los ya contratados o adquiridos; comunicarle sobre cambios en los mismos; elaborar estudios y programas que son necesarios para determinar hábitos de consumo; y en general, para dar cumplimiento a las obligaciones que hemos contraído con usted.
           </p>
 
           <h2 className="text-xl font-bold text-[#1F3A5F] mt-8">2. Datos recabados</h2>
@@ -35,6 +38,6 @@ export default function AvisoDePrivacidadPage() {
           </p>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

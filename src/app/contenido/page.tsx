@@ -1,3 +1,7 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { title: "Contenido" };
+
 export default function ContenidoPage() {
   // Aquí guardamos los datos reales de los videos de Gaudencio
   const videos = [

@@ -1,9 +1,12 @@
+import type { Metadata } from "next";
 // src/app/para-leer/page.tsx
 import { articles } from "@/app/data/paraleer";
 
+export const metadata: Metadata = { title: "Para leer" };
+
 export default function ArticulosPage() {
   return (
-    <main className="bg-[#F8F9FA] min-h-screen">
+    <div className="bg-[#F8F9FA] min-h-screen">
       <div className="max-w-6xl mx-auto px-6 py-24 text-[#1F3A5F]">
         
         {/* Encabezado */}
@@ -64,6 +67,6 @@ export default function ArticulosPage() {
           </p>
         </section>
       </div>
-    </main>
+    </div>
   );
 }

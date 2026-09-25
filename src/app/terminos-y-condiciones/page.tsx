@@ -1,6 +1,10 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { title: "Términos y condiciones" };
+
 export default function TerminosPage() {
   return (
-    <main className="min-h-screen bg-[#F8F9FA] py-24">
+    <div className="min-h-screen bg-[#F8F9FA] py-24">
       <div className="max-w-4xl mx-auto px-6 text-[#1F3A5F]">
         <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
           Términos y Condiciones
@@ -9,7 +13,7 @@ export default function TerminosPage() {
 
         <div className="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-gray-100 space-y-6 text-[#4F6572] leading-relaxed">
           <p>
-            El acceso y uso de este sitio web, así como la compra de productos (libros) y servicios (cursos, talleres) de <strong>Gaudencio Rodríguez Juárez</strong>, están sujetos a los siguientes términos y condiciones.
+            El acceso y uso de este sitio web, así como la compra de productos (libros) y servicios (talleres) de <strong>Gaudencio Rodríguez Juárez</strong>, están sujetos a los siguientes términos y condiciones.
           </p>
 
           <h2 className="text-xl font-bold text-[#1F3A5F] mt-8">1. Propiedad Intelectual</h2>
@@ -24,16 +28,16 @@ export default function TerminosPage() {
 
           <h2 className="text-xl font-bold text-[#1F3A5F] mt-8">3. Políticas de Devolución</h2>
           <ul className="list-disc pl-6 space-y-2">
-            <li><strong>Productos Digitales y Cursos:</strong> Debido a la naturaleza de los productos digitales y el acceso inmediato a la información, no se ofrecen reembolsos una vez realizada la compra.</li>
+            <li><strong>Productos Digitales:</strong> Debido a la naturaleza de los productos digitales y el acceso inmediato a la información, no se ofrecen reembolsos una vez realizada la compra.</li>
             <li><strong>Libros Físicos:</strong> Se aceptarán devoluciones únicamente en caso de defectos de impresión o daños durante el envío, debiendo ser reportados en un plazo no mayor a 7 días hábiles tras su recepción.</li>
           </ul>
 
           <h2 className="text-xl font-bold text-[#1F3A5F] mt-8">4. Disponibilidad del Servicio</h2>
           <p>
-            Nos esforzamos por asegurar que el acceso a los cursos en línea sea ininterrumpido. Sin embargo, no nos hacemos responsables por caídas temporales del sistema debido a mantenimiento técnico o problemas ajenos a nuestro control (como fallas del proveedor de hosting).
+            Nos esforzamos por asegurar que el acceso a este sitio web sea ininterrumpido. Sin embargo, no nos hacemos responsables por caídas temporales del sistema debido a mantenimiento técnico o problemas ajenos a nuestro control (como fallas del proveedor de hosting).
           </p>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

@@ -31,10 +31,7 @@ export default function HomePage() {
               Coadyuvamos en el cuidado y buen trato hacia las niñas, niños y adolescentes para su pleno desarrollo.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-              <Link href="/cursos" className="px-8 py-3.5 rounded-full bg-[#E85D2A] text-white font-bold text-center shadow-lg shadow-[#E85D2A]/20 hover:bg-[#C94F24] hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200">
-                Ver cursos
-              </Link>
-              <Link href="/libros" className="px-8 py-3.5 rounded-full border-2 border-[#E85D2A] text-[#E85D2A] font-bold text-center hover:bg-[#E85D2A]/10 transition-colors duration-200">
+              <Link href="/libros" className="px-8 py-3.5 rounded-full bg-[#E85D2A] text-white font-bold text-center shadow-lg shadow-[#E85D2A]/20 hover:bg-[#C94F24] hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200">
                 Ver libros
               </Link>
             </div>
@@ -161,7 +158,7 @@ export default function HomePage() {
                 <div className="w-12 h-12 bg-[#1F3A5F]/10 rounded-full flex items-center justify-center text-[#1F3A5F] font-bold">R</div>
                 <div>
                   <h4 className="font-bold text-[#1F3A5F]">Roberto C.</h4>
-                  <p className="text-sm text-[#E85D2A]">Alumno del curso online</p>
+                  <p className="text-sm text-[#E85D2A]">Participante del taller de crianza</p>
                 </div>
               </div>
             </div>

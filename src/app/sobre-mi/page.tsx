@@ -1,9 +1,12 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+export const metadata: Metadata = { title: "Sobre mí" };
+
 export default function SobreMiPage() {
   return (
-    <main className="min-h-screen bg-[#F8F9FA]">
+    <div className="min-h-screen bg-[#F8F9FA]">
       <div className="max-w-6xl mx-auto px-6 py-24 text-[#1F3A5F]">
         
         {/* Encabezado */}
@@ -72,15 +75,12 @@ export default function SobreMiPage() {
 
         {/* Botones de navegación */}
         <section className="border-t border-gray-200 pt-10 flex flex-col sm:flex-row gap-4 w-full justify-center md:justify-start">
-          <Link href="/cursos" className="px-8 py-3 rounded-full bg-[#E85D2A] text-white font-bold text-center hover:bg-[#C94F24] transition shadow-md sm:w-auto">
-            Cursos y talleres
-          </Link>
-          <Link href="/libros" className="px-8 py-3 rounded-full border-2 border-[#E85D2A] text-[#E85D2A] font-bold text-center hover:bg-[#E85D2A]/10 transition sm:w-auto">
+          <Link href="/libros" className="px-8 py-3 rounded-full bg-[#E85D2A] text-white font-bold text-center hover:bg-[#C94F24] transition shadow-md sm:w-auto">
             Libros
           </Link>
         </section>
 
       </div>
-    </main>
+    </div>
   );
 }

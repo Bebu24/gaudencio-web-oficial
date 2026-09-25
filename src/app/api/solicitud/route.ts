@@ -1,9 +1,13 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
+import { books } from "@/app/data/libros";
+
+// URL pública del sitio. Nunca se toma de los encabezados de la petición
+// (se podrían falsificar para redirigir al comprador a otro sitio).
+const SITE_URL = (process.env.NEXT_PUBLIC_URL || "https://www.gaudenciorodriguez.com").replace(/\/+$/, "");
 
 export async function POST(req: Request) {
-  // Leemos la llave una sola vez. Si falta, fallamos de forma controlada
-  // ANTES de crear el cliente de Stripe.
+  // Si falta la llave de Stripe, fallamos de forma controlada
   const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
   if (!stripeSecretKey) {
     console.error("STRIPE_SECRET_KEY no está configurada");
@@ -13,34 +17,28 @@ export async function POST(req: Request) {
     );
   }
 
-  // Creamos el cliente AQUÍ DENTRO (no en el nivel superior del archivo) para que
-  // solo se ejecute cuando llega una petición, no durante el "build".
+  // El navegador solo manda el ID del producto.
+  // Precio, título e imagen salen del catálogo del servidor: no se pueden manipular.
+  let id: unknown;
+  try {
+    ({ id } = await req.json());
+  } catch {
+    return NextResponse.json({ error: "Solicitud inválida." }, { status: 400 });
+  }
+
+  const book = books.find((b) => b.id === id);
+  if (!book) {
+    return NextResponse.json({ error: "Producto no encontrado." }, { status: 400 });
+  }
+
+  // Creamos el cliente aquí (no al nivel del archivo) para que el build no necesite la llave.
+  // En Cloudflare Workers, Stripe debe usar fetch como cliente HTTP.
   const stripe = new Stripe(stripeSecretKey, {
     apiVersion: "2026-02-25.clover",
+    httpClient: Stripe.createFetchHttpClient(),
   });
 
   try {
-    // Agregamos "tipo" a lo que extraemos del frontend
-    const { title, price, image, tipo } = await req.json();
-
-    // Validamos que llegue un título y un precio numérico válido
-    if (!title || typeof price !== "number" || !Number.isFinite(price) || price <= 0) {
-      return NextResponse.json(
-        { error: "Datos del producto inválidos." },
-        { status: 400 }
-      );
-    }
-
-    // Obtenemos la URL base (prioriza la variable de entorno, si no usa el origen del request)
-    const origin = process.env.NEXT_PUBLIC_URL || req.headers.get("origin");
-
-    // Decidimos a qué página regresarlo si cancela el pago
-    const cancelPath = tipo === "curso" ? "/cursos" : "/libros";
-
-    // Stripe solo acepta URLs públicas https para la imagen; descartamos cualquier otra cosa
-    const safeImage =
-      typeof image === "string" && /^https?:\/\//i.test(image) ? [image] : [];
-
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       line_items: [
@@ -48,10 +46,10 @@ export async function POST(req: Request) {
           price_data: {
             currency: "mxn", // Cobramos en Pesos Mexicanos
             product_data: {
-              name: title,
-              images: safeImage,
+              name: book.title,
+              images: [`${SITE_URL}${book.image}`],
             },
-            unit_amount: Math.round(price * 100),
+            unit_amount: Math.round(book.price * 100),
           },
           quantity: 1,
         },
@@ -59,8 +57,8 @@ export async function POST(req: Request) {
       automatic_tax: { enabled: true },
       billing_address_collection: "required",
       mode: "payment",
-      success_url: `${origin}/success`,
-      cancel_url: `${origin}${cancelPath}`,
+      success_url: `${SITE_URL}/success`,
+      cancel_url: `${SITE_URL}/libros`,
     });
 
     return NextResponse.json({ url: session.url });

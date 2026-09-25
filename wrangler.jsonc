@@ -1,9 +1,10 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "main": ".open-next/worker.js",
-  "name": "gaudencio-rodriguez",
+  // Debe coincidir con el nombre del Worker en el dashboard de Cloudflare
+  "name": "gaudencio-web-oficial",
   "compatibility_date": "2026-07-08",
-  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS"

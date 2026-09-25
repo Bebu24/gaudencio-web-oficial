@@ -10,8 +10,7 @@ export default function Footer() {
               <h3 className="font-semibold tracking-wider text-white">Servicios</h3>
               <ul className="mt-4 space-y-3 text-[#F9F6F1]/70">
                 <li><Link href="/contrataciones" className="hover:text-[#E85D2A] transition-colors">Conferencias</Link></li>
-                <li><Link href="/cursos" className="hover:text-[#E85D2A] transition-colors">Cursos</Link></li>
-                <li><Link href="/cursos" className="hover:text-[#E85D2A] transition-colors">Talleres</Link></li>
+                <li><Link href="/contrataciones" className="hover:text-[#E85D2A] transition-colors">Talleres</Link></li>
                 <li><Link href="/libros" className="hover:text-[#E85D2A] transition-colors">Libros</Link></li>
               </ul>
             </div>

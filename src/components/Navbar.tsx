@@ -36,13 +36,6 @@ export default function Navbar() {
             <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#E85D2A] scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
           </Link>
 
-          <Link href="/cursos" className="relative group py-1">
-            <span className="text-[#F9F6F1] text-sm md:text-base font-semibold tracking-wider transition-colors group-hover:text-white">
-              Cursos y Talleres
-            </span>
-            <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#E85D2A] scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
-          </Link>
-
           <Link href="/contenido" className="relative group py-1">
             <span className="text-[#F9F6F1] text-sm md:text-base font-semibold tracking-wider transition-colors group-hover:text-white">
               Contenido
@@ -67,8 +60,12 @@ export default function Navbar() {
 
         {/* --- BOTÓN MENÚ MÓVIL --- */}
         <button
-          className="md:hidden text-[#F9F6F1] hover:text-white focus:outline-none"
+          type="button"
+          className="md:hidden text-[#F9F6F1] hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E85D2A] rounded-md"
           onClick={() => setIsOpen(!isOpen)}
+          aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
+          aria-expanded={isOpen}
+          aria-controls="menu-movil"
         >
           {isOpen ? (
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-7 h-7 transition-transform duration-300 rotate-90">
@@ -83,7 +80,8 @@ export default function Navbar() {
       </div>
 
       {/* --- MENÚ DESPLEGABLE MÓVIL --- */}
-      <div 
+      <div
+        id="menu-movil"
         className={`md:hidden bg-[#1F3A5F] overflow-hidden transition-all duration-300 ease-in-out ${
           isOpen ? "max-h-[400px] border-t border-white/10 shadow-xl" : "max-h-0"
         }`}
@@ -94,9 +92,6 @@ export default function Navbar() {
           </Link>
           <Link href="/libros" onClick={closeMenu} className="text-[#F9F6F1] font-semibold hover:text-[#E85D2A] transition-colors duration-200">
             Libros
-          </Link>
-          <Link href="/cursos" onClick={closeMenu} className="text-[#F9F6F1] font-semibold hover:text-[#E85D2A] transition-colors duration-200">
-            Cursos y Talleres
           </Link>
           <Link href="/contenido" onClick={closeMenu} className="text-[#F9F6F1] font-semibold hover:text-[#E85D2A] transition-colors duration-200">
             Contenido
