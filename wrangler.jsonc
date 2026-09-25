@@ -10,7 +10,8 @@
     "binding": "ASSETS"
   },
   "vars": {
-    "NEXT_PUBLIC_URL": "https://www.gaudenciorodriguez.com"
+    "NEXT_PUBLIC_URL": "https://www.gaudenciorodriguez.com",
+    "RESEND_FROM_EMAIL": "Sitio Web Gaudencio <contacto@gaudenciorodriguez.com>"
   },
   "observability": { "enabled": true }
 }
